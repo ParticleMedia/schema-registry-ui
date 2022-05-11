@@ -13,7 +13,7 @@ var SchemaRegistryConfigCtrl = function ($scope, $http, $log, $mdDialog, SchemaR
   }, function () {
     $scope.schemaRegistryURL = env.SCHEMA_REGISTRY();
 
-    $scope.globalConfigOpts = ["NONE", "FULL", "FORWARD", "BACKWARD"];
+    $scope.globalConfigOpts = ["NONE", "FULL", "FORWARD", "BACKWARD", "ADDONLY"];
 
     if (env.allowTransitiveCompatibilities()) {
       $scope.globalConfigOpts.push("FULL_TRANSITIVE", "FORWARD_TRANSITIVE", "BACKWARD_TRANSITIVE");
@@ -49,6 +49,7 @@ var SchemaRegistryConfigCtrl = function ($scope, $http, $log, $mdDialog, SchemaR
   var backward_transitive = "<b>Backward transitive</b>: Only available for schema registry 3.1.0 and above.<br />New schema is backward and forward compatible with all previously registered schemas.";
   var forward_transitive = "<b>Forward transitive</b>: Only available for schema registry 3.1.0 and above.<br />All previously registered schemas can read data produced by the new schema.";
   var full_transitive = "<b>Full transitive</b>: Only available for schema registry 3.1.0 and above.<br />New schema can read data produced by all previously registered schemas.";
+  var addonlyText = '<b>Addonly compatibility</b>:<br /> A new schema is addonly compatible if it only can add new schema in the end.';
   var text = '';
 
   function dialog(config, event) {
@@ -74,6 +75,9 @@ var SchemaRegistryConfigCtrl = function ($scope, $http, $log, $mdDialog, SchemaR
         break;
       case "FULL_TRANSITIVE":
         text = full_transitive;
+        break;
+      case "ADDONLY":
+        text = addonlyText;
         break;
       default:
         text = ''
