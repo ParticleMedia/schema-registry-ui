@@ -14,21 +14,21 @@ RUN wget "https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.
 
 # Add and Setup Schema-Registry-Ui
 ENV SCHEMA_REGISTRY_UI_VERSION="0.9.5"
-#RUN wget "https://github.com/Landoop/schema-registry-ui/releases/download/v.${SCHEMA_REGISTRY_UI_VERSION}/schema-registry-ui-${SCHEMA_REGISTRY_UI_VERSION}.tar.gz" \
-#         -O /schema-registry-ui.tar.gz \
-#    && mkdir /schema-registry-ui \
-#    && tar xzf /schema-registry-ui.tar.gz -C /schema-registry-ui --no-same-owner \
-#    && rm -f /schema-registry-ui.tar.gz \
-#    && rm -f /schema-registry-ui/env.js \
-#    && ln -s /tmp/env.js /schema-registry-ui/env.js
+RUN wget "https://github.com/Landoop/schema-registry-ui/releases/download/v.${SCHEMA_REGISTRY_UI_VERSION}/schema-registry-ui-${SCHEMA_REGISTRY_UI_VERSION}.tar.gz" \
+         -O /schema-registry-ui.tar.gz \
+    && mkdir /schema-registry-ui \
+    && tar xzf /schema-registry-ui.tar.gz -C /schema-registry-ui --no-same-owner \
+    && rm -f /schema-registry-ui.tar.gz \
+    && rm -f /schema-registry-ui/env.js \
+    && ln -s /tmp/env.js /schema-registry-ui/env.js
 
 # Add configuration and runtime files
-#ADD Caddyfile /caddy/Caddyfile.template
-#ADD run.sh /
-#RUN chmod +x /run.sh
-#
-#EXPOSE 8000
-#
-#
-## USER nobody:nogroup
-#ENTRYPOINT ["/run.sh"]
+ADD Caddyfile /caddy/Caddyfile.template
+ADD run.sh /
+RUN chmod +x /run.sh
+
+EXPOSE 8000
+
+
+# USER nobody:nogroup
+ENTRYPOINT ["/run.sh"]
