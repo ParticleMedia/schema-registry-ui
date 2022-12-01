@@ -148,6 +148,8 @@ var SubjectsCtrl = function ($rootScope, $scope, $route, $routeParams, $log, $lo
             }
             else {
               $log.error("Could not test compatibilitydasdas", data);
+              $scope.aceBackgroundColor = "rgba(255, 0, 0, 0.10)";
+              toastFactory.showLongToast("Could not test compatibilitydasdas. Reason: " + data.message);
             }
           });
       } else {
