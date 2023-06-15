@@ -231,7 +231,7 @@ var SchemaRegistryFactory = function ($rootScope, $http, $location, $q, $log, Ut
 
     var deferred = $q.defer();
 
-    if (["NONE", "FULL", "FORWARD", "BACKWARD", "FULL_TRANSITIVE", "FORWARD_TRANSITIVE", "BACKWARD_TRANSITIVE"].indexOf(compatibilityLevel) !== -1) {
+    if (["NONE", "FULL", "FORWARD", "BACKWARD", "FULL_TRANSITIVE", "FORWARD_TRANSITIVE", "BACKWARD_TRANSITIVE", "ADDONLY"].indexOf(compatibilityLevel) !== -1) {
 
       var putConfig = {
         method: 'PUT',
@@ -321,7 +321,7 @@ var SchemaRegistryFactory = function ($rootScope, $http, $location, $q, $log, Ut
 
     var deferred = $q.defer();
 
-    if (["NONE", "FULL", "FORWARD", "BACKWARD", "FULL_TRANSITIVE", "FORWARD_TRANSITIVE", "BACKWARD_TRANSITIVE"].indexOf(newCompatibilityLevel) !== -1) {
+    if (["NONE", "FULL", "FORWARD", "BACKWARD", "FULL_TRANSITIVE", "FORWARD_TRANSITIVE", "BACKWARD_TRANSITIVE", "ADDONLY"].indexOf(newCompatibilityLevel) !== -1) {
 
       var putConfig = {
         method: 'PUT',

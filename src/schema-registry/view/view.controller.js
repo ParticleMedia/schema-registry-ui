@@ -135,7 +135,10 @@ var SubjectsCtrl = function ($rootScope, $scope, $route, $routeParams, $log, $lo
               $scope.isAvroUpdatedAndCompatible = true;
             } else {
               $scope.aceBackgroundColor = "rgba(255, 255, 0, 0.10)";
-              toastFactory.showLongToast("This schema is incompatible with the latest version");
+              toastFactory.showLongToast("This schema is incompatible with the latest version. " +
+                  "PS: In ADDONLY mode, it only supports add optional fields with null default value in the end of record and nested record! " +
+                  "It not allow to change field type or add fields in the middle of record. " +
+                  "If you have any question, please feel free to contact @DataSH.");
             }
           },
           function failure(data) {
@@ -145,6 +148,8 @@ var SubjectsCtrl = function ($rootScope, $scope, $route, $routeParams, $log, $lo
             }
             else {
               $log.error("Could not test compatibilitydasdas", data);
+              $scope.aceBackgroundColor = "rgba(255, 0, 0, 0.10)";
+              toastFactory.showLongToast("Could not test compatibilitydasdas. Reason: " + data.message);
             }
           });
       } else {
