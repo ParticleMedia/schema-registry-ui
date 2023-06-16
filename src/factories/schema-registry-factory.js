@@ -503,7 +503,21 @@ var SchemaRegistryFactory = function ($rootScope, $http, $location, $q, $log, Ut
       var deferred = $q.defer();
       var start = new Date().getTime();
 
-      // 1. Get all subject names
+      function isJSON(str)
+      {
+        if (typeof str == 'string') {
+          try {
+            JSON.parse(str);
+            return true;
+          } catch (e) {
+            // console.log(e);
+            return false;
+          }
+        }
+        console.log('Schema is not a string!')
+      }
+
+        // 1. Get all subject names
       getSubjects().then(
         function success(allSubjectNames) {
           // 2. Get full details of subject's final versions
@@ -515,11 +529,13 @@ var SchemaRegistryFactory = function ($rootScope, $http, $location, $q, $log, Ut
             CACHE = []; // Clean up existing cache - to replace with new one
             angular.forEach(latestSchemas, function (result) {
               var data = result.data;
+              var json = isJSON(data.schema) ? data.schema : '{"error":"this schema is not avro"}';
+              $log.info(json)
               var cacheData = {
                 version: data.version,  // version
                 id: data.id,            // id
                 schema: data.schema,    // schema - in String - schema i.e. {\"type\":\"record\",\"name\":\"User\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"}]}
-                Schema: JSON.parse(data.schema), // js type | name | doc | fields ...
+                Schema: JSON.parse(json), // js type | name | doc | fields ...
                 subjectName: data.subject
               };
               CACHE.push(cacheData);
