@@ -503,7 +503,21 @@ var SchemaRegistryFactory = function ($rootScope, $http, $location, $q, $log, Ut
       var deferred = $q.defer();
       var start = new Date().getTime();
 
-      // 1. Get all subject names
+      function isJSON(str)
+      {
+        if (typeof str == 'string') {
+          try {
+            JSON.parse(str);
+            return true;
+          } catch (e) {
+            // console.log(e);
+            return false;
+          }
+        }
+        console.log('Schema is not a string!')
+      }
+
+        // 1. Get all subject names
       getSubjects().then(
         function success(allSubjectNames) {
           // 2. Get full details of subject's final versions
@@ -515,6 +529,9 @@ var SchemaRegistryFactory = function ($rootScope, $http, $location, $q, $log, Ut
             CACHE = []; // Clean up existing cache - to replace with new one
             angular.forEach(latestSchemas, function (result) {
               var data = result.data;
+              if (!isJSON(data.schema)) {
+                return;
+              }
               var cacheData = {
                 version: data.version,  // version
                 id: data.id,            // id
